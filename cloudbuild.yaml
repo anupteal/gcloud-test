@@ -11,4 +11,12 @@ steps:
    args: 
      - "-c"
      - |
+         cd jfrog-artifactory
+         ls 
+ - name: 'gcr.io/cloud-builders/gcloud'
+   entrypoint: "bash"
+   args: 
+     - "-c"
+     - |
+         pwd
          ls -a
