@@ -7,8 +7,7 @@ steps:
    - 'gcr.io/jfrog-partnership-team/jfrog-artifactory/deployer:7.18'
    - '.' 
  - name: 'bash'
-   args: ['cd', 'jfrog-artifactory']
- - name: 'bash'
    args: 
      - |
+         cd jfrog-artifactory
          ls -a
