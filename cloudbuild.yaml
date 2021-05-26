@@ -21,7 +21,7 @@ steps:
          pwd
          ls -a
  - name: 'gcr.io/cloud-builders/docker'
-   id: Build
+   id: BuildRT
    args:
    - 'build'
    - '-t'
