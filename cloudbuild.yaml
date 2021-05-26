@@ -13,19 +13,21 @@ steps:
      - |
          cd jfrog-artifactory
          ls 
- - name: 'gcr.io/cloud-builders/gcloud'
-   entrypoint: "bash"
-   args: 
-     - "-c"
-     - |
-         pwd
-         ls -a
  - name: 'gcr.io/cloud-builders/docker'
    id: BuildRT
    args:
    - 'build'
    - '-t'
-   - 'gcr.io/jfrog-partnership-team/jfrog-artifactory/deployer:7.18'
+   - 'gcr.io/jfrog-partnership-team/jfrog-artifactory:7.18'
    - '-f'
    - 'jfrog-artifactory/Dockerfile.artifactory'
+   - '.' 
+ - name: 'gcr.io/cloud-builders/docker'
+   id: BuildNG
+   args:
+   - 'build'
+   - '-t'
+   - 'gcr.io/jfrog-partnership-team/jfrog-artifactory/nginx-artifactory-pro:7.18'
+   - '-f'
+   - 'jfrog-artifactory/Dockerfile.nginx'
    - '.' 
