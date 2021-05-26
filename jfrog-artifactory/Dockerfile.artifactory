@@ -2,7 +2,7 @@ FROM docker.bintray.io/jfrog/artifactory-pro:7.18.6
 
 USER root
 RUN mkdir -p /var/opt/jfrog/artifactory/etc/artifactory/info/
-ADD info /var/opt/jfrog/artifactory/etc/artifactory/info/
+ADD jfrog-artifactory/info /var/opt/jfrog/artifactory/etc/artifactory/info/
 RUN chown -R artifactory:artifactory /var/opt/jfrog/artifactory/etc/artifactory/
 
 ADD sources /third-party-oss/sources/
