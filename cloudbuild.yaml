@@ -6,11 +6,7 @@ steps:
    - '-t'
    - 'gcr.io/jfrog-partnership-team/jfrog-artifactory/deployer:7.18'
    - '.' 
- - name: 'gcr.io/cloud-builders/docker'
-   id: Push-Deployer
-   args:
-   - 'push'
-   - 'gcr.io/jfrog-partnership-team/jfrog-artifactory/deployer:7.18'
+
  - name: 'gcr.io/cloud-builders/gcloud'
    entrypoint: "bash"
    args: 
@@ -27,11 +23,7 @@ steps:
    - '-f'
    - 'jfrog-artifactory/Dockerfile.artifactory'
    - '.' 
- - name: 'gcr.io/cloud-builders/docker'
-   id: Push-Artifactory
-   args:
-   - 'push'
-   - 'gcr.io/jfrog-partnership-team/jfrog-artifactory:7.18'
+
  - name: 'gcr.io/cloud-builders/docker'
    id: BuildNG
    args:
@@ -41,8 +33,4 @@ steps:
    - '-f'
    - 'jfrog-artifactory/Dockerfile.nginx'
    - '.' 
- - name: 'gcr.io/cloud-builders/docker'
-   id: Push-Artifactory-Nginx
-   args:
-   - 'push'
-   - 'gcr.io/jfrog-partnership-team/jfrog-artifactory/nginx-artifactory-pro:7.18'
+
