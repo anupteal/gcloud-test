@@ -13,12 +13,7 @@ steps:
    args: ['version', '--client']
    env:
      - SKIP_CLUSTER_CONFIG=true
-   images:
-     - 'gcr.io/$PROJECT_ID/helm:${_HELM_VERSION}'
-     - 'gcr.io/$PROJECT_ID/helm:latest'
-   tags: ['cloud-builders-community']
-   substitutions:
-     _HELM_VERSION: 3.2.0
+
 
  - name: 'gcr.io/cloud-builders/gcloud'
    entrypoint: "bash"
