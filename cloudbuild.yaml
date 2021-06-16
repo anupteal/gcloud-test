@@ -12,11 +12,11 @@ steps:
    args: 
      - "-c"
      - |
-         gcloud config set project jfrog-partnership-team
-         gcloud config set compute/zone asia-southeast1-a
-         gcloud config list
-         gcloud container clusters create anup-cluster --machine-type=f1-micro --preemptible --zone=asia-southeast1-a
-         kubectl get nodes
+         #gcloud config set project jfrog-partnership-team
+         #gcloud config set compute/zone asia-southeast1-a
+         #gcloud config list
+         #gcloud container clusters create anup-cluster --machine-type=f1-micro --preemptible --zone=asia-southeast1-a
+         #kubectl get nodes
          ls 
  - name: 'gcr.io/cloud-builders/docker'
    id: BuildRT
@@ -47,4 +47,21 @@ steps:
    - '-f'
    - 'jfrog-xray/Dockerfile.xray-analysis'
    - '.' 
+ - name: gcr.io/cloud-builders/kubectl
+   id: Configure kubectl
+   args:
+     - cluster-info
+   env:
+     - CLOUDSDK_COMPUTE_REGION=us-central1-b
+     - CLOUDSDK_CONTAINER_CLUSTER=anup-cloudbuild
+     - KUBECONFIG=/workspace/.kube/config
+ - name: gcr.io/$PROJECT_ID/helm
+   id: Deploy chart
+   args:
+     - repo
+     - add
+     - bitnami
+     - https://charts.bitnami.com/bitnami
+   env:
+     - KUBECONFIG=/workspace/.kube/config
 
