@@ -4,7 +4,7 @@ steps:
    args:
    - 'build'
    - '-t'
-   - 'gcr.io/jfrog-partnership-team/jfrog-artifactory/deployer:7.18'
+   - 'gcr.io/jfrog-partnership-team/jfrog-artifactory/deployer:7.19'
    - '.' 
 
  - name: 'gcr.io/cloud-builders/gcloud'
@@ -19,7 +19,7 @@ steps:
    args:
    - 'build'
    - '-t'
-   - 'gcr.io/jfrog-partnership-team/jfrog-artifactory:7.18'
+   - 'gcr.io/jfrog-partnership-team/jfrog-artifactory:7.19.4'
    - '-f'
    - 'jfrog-artifactory/Dockerfile.artifactory'
    - '.' 
@@ -29,8 +29,18 @@ steps:
    args:
    - 'build'
    - '-t'
-   - 'gcr.io/jfrog-partnership-team/jfrog-artifactory/nginx-artifactory-pro:7.18'
+   - 'gcr.io/jfrog-partnership-team/jfrog-artifactory/nginx-artifactory-pro:7.19.4'
    - '-f'
    - 'jfrog-artifactory/Dockerfile.nginx'
+   - '.' 
+   
+ - name: 'gcr.io/cloud-builders/docker'
+   id: Build_xray-analysis_image
+   args:
+   - 'build'
+   - '-t'
+   - 'gcr.io/jfrog-partnership-team/jfrog-artifactory/xray-analysis:3.25.1'
+   - '-f'
+   - 'jfrog-xray/Dockerfile.xray-analysis'
    - '.' 
 
