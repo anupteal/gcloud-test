@@ -1,11 +1,19 @@
+substitutions:
+  _RT_VERSION=7.19.4
+  _XRAY_VERSION=3.25.1
 steps:
  - name: 'gcr.io/cloud-builders/docker'
-   id: Build-Deployer
+   id: Build Deployer Image
    args:
    - 'build'
    - '-t'
-   - 'gcr.io/jfrog-partnership-team/jfrog-artifactory/deployer:7.19'
-   - '.' 
+   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/deployer:7.19'
+   - '.'
+ - name: gcr.io/cloud-builders/docker
+   id: Push Deployer Image
+   args:
+     - 'push'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/deployer:7.19'
  - name: 'gcr.io/cloud-builders/gcloud'
    entrypoint: "bash"
    args: 
@@ -18,34 +26,47 @@ steps:
          #kubectl get nodes
          ls 
  - name: 'gcr.io/cloud-builders/docker'
-   id: BuildRT
+   id: Build Artifactory Image
    args:
    - 'build'
    - '-t'
-   - 'gcr.io/jfrog-partnership-team/jfrog-artifactory:7.19.4'
+   - 'gcr.io/$PROJECT_ID/jfrog-artifactory:$_RT_VERSION'
    - '-f'
    - 'jfrog-artifactory/Dockerfile.artifactory'
    - '.' 
-
+ - name: gcr.io/cloud-builders/docker
+   id: Push Artifactory Image
+   args:
+     - 'push'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:$_RT_VERSION'
  - name: 'gcr.io/cloud-builders/docker'
-   id: BuildNG
+   id: Build Artifactory-Nginx Image
    args:
    - 'build'
    - '-t'
-   - 'gcr.io/jfrog-partnership-team/jfrog-artifactory/nginx-artifactory-pro:7.19.4'
+   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/nginx-artifactory-pro:$_RT_VERSION'
    - '-f'
    - 'jfrog-artifactory/Dockerfile.nginx'
    - '.' 
-   
+ - name: gcr.io/cloud-builders/docker
+   id: Push Artifactory-Nginx Image
+   args:
+     - 'push'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/nginx-artifactory-pro:$_RT_VERSION'
  - name: 'gcr.io/cloud-builders/docker'
-   id: Build_xray-analysis_image
+   id: Build Xray-Analysis Image
    args:
    - 'build'
    - '-t'
-   - 'gcr.io/jfrog-partnership-team/jfrog-artifactory/xray-analysis:3.25.1'
+   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-analysis:$_XRAY_VERSION'
    - '-f'
    - 'jfrog-xray/Dockerfile.xray-analysis'
    - '.' 
+ - name: gcr.io/cloud-builders/docker
+   id: Push Xray-Analysis Image
+   args:
+     - 'push'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-analysis:$_XRAY_VERSION'
  - name: gcr.io/cloud-builders/kubectl
    id: Configure kubectl
    args:
@@ -55,21 +76,26 @@ steps:
      - CLOUDSDK_CONTAINER_CLUSTER=anup-cloudbuild
      - KUBECONFIG=/workspace/.kube/config
  - name: gcr.io/$PROJECT_ID/helm
-   id: Add chart
+   id: update chart
    args:
-     - repo
-     - add
-     - bitnami
-     - https://charts.bitnami.com/bitnami
+     - ./chart/unified-mp
+     - dependency
+     - build
    env:
      - KUBECONFIG=/workspace/.kube/config
- - name: gcr.io/$PROJECT_ID/helm
-   id: Deploy chart
-   args:
-     - install
-     - postgres
-     - bitnami/postgresql
-     - --set
-     - persistence.size=20Gi
-   env:
-     - KUBECONFIG=/workspace/.kube/config
+ - name: 'gcr.io/cloud-builders/gcloud'
+   entrypoint: "bash"
+   args: 
+     - "-c"
+     - |
+         ls chart/unified-mp/charts
+# - name: gcr.io/$PROJECT_ID/helm
+#   id: Deploy chart
+#   args:
+#     - install
+#     - postgres
+#     - bitnami/postgresql
+#     - --set
+#     - persistence.size=20Gi
+#   env:
+#     - KUBECONFIG=/workspace/.kube/config
