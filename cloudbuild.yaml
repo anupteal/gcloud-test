@@ -55,7 +55,7 @@ steps:
      - CLOUDSDK_CONTAINER_CLUSTER=anup-cloudbuild
      - KUBECONFIG=/workspace/.kube/config
  - name: gcr.io/$PROJECT_ID/helm
-   id: Deploy chart
+   id: Add chart
    args:
      - repo
      - add
@@ -63,4 +63,13 @@ steps:
      - https://charts.bitnami.com/bitnami
    env:
      - KUBECONFIG=/workspace/.kube/config
-
+ - name: gcr.io/$PROJECT_ID/helm
+   id: Deploy chart
+   args:
+     - install
+     - postgres
+     - bitnami/postgresql
+     - set
+     - persistence.size=20Gi
+   env:
+     - KUBECONFIG=/workspace/.kube/config
