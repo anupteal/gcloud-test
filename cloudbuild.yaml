@@ -1,6 +1,6 @@
 substitutions:
-  _RT_VERSION=7.19.4
-  _XRAY_VERSION=3.25.1
+  _RT_VERSION='7.19.4'
+  _XRAY_VERSION='3.25.1'
 steps:
  - name: 'gcr.io/cloud-builders/docker'
    id: Build Deployer Image
@@ -29,6 +29,8 @@ steps:
    id: Build Artifactory Image
    args:
    - 'build'
+   - '--build-arg'
+   - 'TAG=$RT_VERSION'
    - '-t'
    - 'gcr.io/$PROJECT_ID/jfrog-artifactory:$_RT_VERSION'
    - '-f'
@@ -43,6 +45,8 @@ steps:
    id: Build Artifactory-Nginx Image
    args:
    - 'build'
+   - '--build-arg'
+   - 'TAG=$RT_VERSION'
    - '-t'
    - 'gcr.io/$PROJECT_ID/jfrog-artifactory/nginx-artifactory-pro:$_RT_VERSION'
    - '-f'
