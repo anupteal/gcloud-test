@@ -30,9 +30,9 @@ steps:
    args:
    - 'build'
    - '--build-arg'
-   - 'TAG=$RT_VERSION'
+   - 'TAG=${_RT_VERSION}'
    - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory:$_RT_VERSION'
+   - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
    - '-f'
    - 'jfrog-artifactory/Dockerfile.artifactory'
    - '.' 
@@ -40,13 +40,13 @@ steps:
    id: Push Artifactory Image
    args:
      - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:$_RT_VERSION'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
  - name: 'gcr.io/cloud-builders/docker'
    id: Build Artifactory-Nginx Image
    args:
    - 'build'
    - '--build-arg'
-   - 'TAG=$RT_VERSION'
+   - 'TAG=${_RT_VERSION}'
    - '-t'
    - 'gcr.io/$PROJECT_ID/jfrog-artifactory/nginx-artifactory-pro:$_RT_VERSION'
    - '-f'
