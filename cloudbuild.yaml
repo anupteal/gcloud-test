@@ -69,7 +69,7 @@ steps:
      - install
      - postgres
      - bitnami/postgresql
-     - set
+     - --set
      - persistence.size=20Gi
    env:
      - KUBECONFIG=/workspace/.kube/config
