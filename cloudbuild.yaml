@@ -81,7 +81,7 @@ steps:
      - KUBECONFIG=/workspace/.kube/config
  - name: gcr.io/$PROJECT_ID/helm
    id: update chart
-   entrypoint: 'bash'
+   entrypoint: '/bin/bash'
    args:
      - "c"
      - |
