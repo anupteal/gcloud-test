@@ -82,9 +82,18 @@ steps:
  - name: gcr.io/$PROJECT_ID/helm
    id: update chart
    args:
+     - repo
+     - add 
+     - jfrog 
+     - https://charts.jfrog.io
+   env:
+     - KUBECONFIG=/workspace/.kube/config
+ - name: gcr.io/$PROJECT_ID/helm
+   id: update chart
+   args:
      - dependency
      - build
-   dir: 'chart/unified-mp'
+   dir: 'chart/artifactory-ha-mp'
    env:
      - KUBECONFIG=/workspace/.kube/config
  - name: 'gcr.io/cloud-builders/gcloud'
