@@ -88,8 +88,8 @@ steps:
          cd ./chart/unified-mp
      - dependency
      - build
-  
-  env:
+ 
+   env:
      - KUBECONFIG=/workspace/.kube/config
  - name: 'gcr.io/cloud-builders/gcloud'
    entrypoint: "bash"
