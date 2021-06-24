@@ -83,7 +83,7 @@ steps:
    id: update chart
    entrypoint: '/bin/bash'
    args:
-     - "cd ./chart/unified-mp"
+     -  "./chart/unified-mp"
      - dependency
      - build
  
