@@ -81,12 +81,10 @@ steps:
      - KUBECONFIG=/workspace/.kube/config
  - name: gcr.io/$PROJECT_ID/helm
    id: update chart
-   entrypoint: '/bin/bash'
    args:
-     -  "./chart/unified-mp"
      - dependency
      - build
- 
+   dir: 'chart/unified-mp'
    env:
      - KUBECONFIG=/workspace/.kube/config
  - name: 'gcr.io/cloud-builders/gcloud'
