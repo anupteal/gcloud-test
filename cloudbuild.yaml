@@ -101,7 +101,7 @@ steps:
    args: 
      - "-c"
      - |
-         ls ./chart/unified-mp/charts/
+         ls ./chart/artifactory-ha-mp/charts/
 # - name: 'gcr.io/cloud-builders/gcloud'
 #   entrypoint: "bash"
 #   args: 
