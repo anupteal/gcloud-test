@@ -103,7 +103,7 @@ steps:
      - |
          ls ./chart/artifactory-ha-mp/charts/
          chmod +x script.bash scripts/mpdev        
- - name: 'gcr.io/cloud-builders/docker'
+ - name: 'gcr.io/$PROJECT_ID/remote-builder'
    entrypoint: 'bash'
    args:
    - '-eEuo'
