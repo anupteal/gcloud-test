@@ -103,8 +103,8 @@ steps:
      - |
          ls ./chart/artifactory-ha-mp/charts/
  - name: 'gcr.io/cloud-builders/gcloud'
- #  entrypoint: "bash"
-   args: ['bash' './script.sh']
+   #entrypoint: "bash"
+   args: [ 'bash', './script.sh' ]
    
    
    
