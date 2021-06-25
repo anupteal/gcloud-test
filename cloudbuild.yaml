@@ -152,7 +152,7 @@ steps:
    args:
      - dependency
      - build
-   dir: 'chart/artifactory-ha-mp'
+   dir: 'chart/unified-mp'
    env:
      - KUBECONFIG=/workspace/.kube/config
  - name: 'gcr.io/cloud-builders/docker'
@@ -186,7 +186,7 @@ steps:
    args: 
      - "-c"
      - |
-         ls ./chart/artifactory-ha-mp/charts/
+         ls ./chart/unified-mp/charts/
          chmod +x script.bash scripts/mpdev        
  - name: 'gcr.io/$PROJECT_ID/remote-builder'
    entrypoint: 'bash'
