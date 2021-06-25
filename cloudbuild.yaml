@@ -7,6 +7,10 @@ steps:
    id: Build Artifactory Image
    args:
    - 'build'
+   - '-f'
+   - 'Dockerfile.artifactory'
+   - '--build-arg'
+   - 'TAG=${_RT_VERSION}'
    - '-t'
    - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
    - '.'
@@ -52,7 +56,7 @@ steps:
    - '-t'
    - 'gcr.io/$PROJECT_ID/jfrog-artifactory/nginx-artifactory-pro:$_RT_VERSION'
    - '-f'
-   - 'jfrog-artifactory/Dockerfile.nginx'
+   - 'Dockerfile.nginx'
    - '.' 
    dir: 'jfrog-artifactory'
 # - name: gcr.io/cloud-builders/docker
