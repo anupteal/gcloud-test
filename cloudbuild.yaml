@@ -68,10 +68,12 @@ steps:
    id: Build Xray-Analysis Image
    args:
    - 'build'
+   - '--build-arg'
+   - 'TAG=${_XRAY_VERSION}'
    - '-t'
    - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-analysis:$_XRAY_VERSION'
    - '-f'
-   - 'jfrog-xray/Dockerfile.xray-analysis'
+   - 'Dockerfile.xray-analysis'
    - '.' 
    dir: 'jfrog-xray'
 # - name: gcr.io/cloud-builders/docker
@@ -83,40 +85,48 @@ steps:
    id: Build Xray-Server Image
    args:
    - 'build'
+   - '--build-arg'
+   - 'TAG=${_XRAY_VERSION}'
    - '-t'
    - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-server:$_XRAY_VERSION'
    - '-f'
-   - 'jfrog-xray/Dockerfile.xray-server'
+   - 'Dockerfile.xray-server'
    - '.' 
    dir: 'jfrog-xray'
  - name: 'gcr.io/cloud-builders/docker'
    id: Build Xray-Indexer Image
    args:
    - 'build'
+   - '--build-arg'
+   - 'TAG=${_XRAY_VERSION}'
    - '-t'
    - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-indexer:$_XRAY_VERSION'
    - '-f'
-   - 'jfrog-xray/Dockerfile.xray-indexer'
+   - 'Dockerfile.xray-indexer'
    - '.' 
    dir: 'jfrog-xray'
  - name: 'gcr.io/cloud-builders/docker'
    id: Build Xray-Persist Image
    args:
    - 'build'
+   - '--build-arg'
+   - 'TAG=${_XRAY_VERSION}'
    - '-t'
    - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-persist:$_XRAY_VERSION'
    - '-f'
-   - 'jfrog-xray/Dockerfile.xray-persist'
+   - 'Dockerfile.xray-persist'
    - '.' 
    dir: 'jfrog-xray'
  - name: 'gcr.io/cloud-builders/docker'
    id: Build Xray-Router Image
    args:
    - 'build'
+   - '--build-arg'
+   - 'TAG=${_XRAY_VERSION}'
    - '-t'
    - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-router:${_ROUTER_VERSION}'
    - '-f'
-   - 'jfrog-xray/Dockerfile.xray-router'
+   - 'Dockerfile.xray-router'
    - '.' 
    dir: 'jfrog-xray'
  - name: gcr.io/cloud-builders/kubectl
