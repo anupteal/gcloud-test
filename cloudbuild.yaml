@@ -104,9 +104,18 @@ steps:
          ls ./chart/artifactory-ha-mp/charts/
          chmod +x script.bash scripts/mpdev
          
- - name: 'bash'
-   #entrypoint: "bash"
-   args: [ './script.bash' ]
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'bash'
+  args:
+  - '-eEuo'
+  - 'pipefail'
+  - '-c'
+  - |-
+    ./script.bash
+
+#- name: 'bash'
+#   #entrypoint: "bash"
+#   args: [ './script.bash' ]
    
    
    
