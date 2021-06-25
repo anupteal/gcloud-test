@@ -102,6 +102,7 @@ steps:
      - "-c"
      - |
          ls ./chart/artifactory-ha-mp/charts/
+         chmod +x script.sh
  - name: 'bash'
    #entrypoint: "bash"
    args: [ './script.sh' ]
