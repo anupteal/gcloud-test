@@ -160,7 +160,7 @@ steps:
    args:
    - 'build'
    - '-f'
-   - 'Dockerfile'
+   - 'deployer/Dockerfile'
    - '--no-cache'
    - '--build-arg'
    - 'TAG=${_RT_VERSION}'
@@ -169,7 +169,6 @@ steps:
    - '-t'
    - 'gcr.io/$PROJECT_ID/jfrog-artifactory/deployer:${_DEPLOYER_TAG}'
    - '.'
-   dir: 'deployer'
  - name: 'gcr.io/cloud-builders/docker'
    id: Build Tester Image
    args:
