@@ -1,4 +1,0 @@
-dependencies:
-- name: artifactory-ha
-  version: 107.19.9
-  repository: https://charts.jfrog.io
