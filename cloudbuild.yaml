@@ -1,19 +1,21 @@
 substitutions:
   _RT_VERSION: 7.19.4
   _XRAY_VERSION: 3.25.1
+  _ROUTER_VERSION: 7.18.2
 steps:
  - name: 'gcr.io/cloud-builders/docker'
-   id: Build Deployer Image
+   id: Build Artifactory Image
    args:
    - 'build'
    - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/deployer:7.19'
+   - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
    - '.'
- - name: gcr.io/cloud-builders/docker
-   id: Push Deployer Image
-   args:
-     - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/deployer:7.19'
+   dir: 'jfrog-artifactory'
+# - name: gcr.io/cloud-builders/docker
+#   id: Push Artifactory Image
+#   args:
+#     - 'push'
+#     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
  - name: 'gcr.io/cloud-builders/gcloud'
    entrypoint: "bash"
    args: 
@@ -25,22 +27,22 @@ steps:
          #gcloud container clusters create anup-cluster --machine-type=f1-micro --preemptible --zone=asia-southeast1-a
          #kubectl get nodes
          ls 
- - name: 'gcr.io/cloud-builders/docker'
-   id: Build Artifactory Image
-   args:
-   - 'build'
-   - '--build-arg'
-   - 'TAG=${_RT_VERSION}'
-   - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
-   - '-f'
-   - 'jfrog-artifactory/Dockerfile.artifactory'
-   - '.' 
- - name: gcr.io/cloud-builders/docker
-   id: Push Artifactory Image
-   args:
-     - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
+# - name: 'gcr.io/cloud-builders/docker'
+#   id: Build Artifactory Image
+#   args:
+#   - 'build'
+#   - '--build-arg'
+#   - 'TAG=${_RT_VERSION}'
+#   - '-t'
+#   - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
+#   - '-f'
+#   - 'jfrog-artifactory/Dockerfile.artifactory'
+#   - '.' 
+# - name: gcr.io/cloud-builders/docker
+#   id: Push Artifactory Image
+#   args:
+#     - 'push'
+#     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
  - name: 'gcr.io/cloud-builders/docker'
    id: Build Artifactory-Nginx Image
    args:
@@ -52,11 +54,12 @@ steps:
    - '-f'
    - 'jfrog-artifactory/Dockerfile.nginx'
    - '.' 
- - name: gcr.io/cloud-builders/docker
-   id: Push Artifactory-Nginx Image
-   args:
-     - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/nginx-artifactory-pro:$_RT_VERSION'
+   dir: 'jfrog-artifactory'
+# - name: gcr.io/cloud-builders/docker
+#   id: Push Artifactory-Nginx Image
+#   args:
+#     - 'push'
+#     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/nginx-artifactory-pro:$_RT_VERSION'
  - name: 'gcr.io/cloud-builders/docker'
    id: Build Xray-Analysis Image
    args:
@@ -66,11 +69,52 @@ steps:
    - '-f'
    - 'jfrog-xray/Dockerfile.xray-analysis'
    - '.' 
- - name: gcr.io/cloud-builders/docker
-   id: Push Xray-Analysis Image
+   dir: 'jfrog-xray'
+# - name: gcr.io/cloud-builders/docker
+#   id: Push Xray-Analysis Image
+#   args:
+#     - 'push'
+#     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-analysis:$_XRAY_VERSION'
+ - name: 'gcr.io/cloud-builders/docker'
+   id: Build Xray-Server Image
    args:
-     - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-analysis:$_XRAY_VERSION'
+   - 'build'
+   - '-t'
+   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-server:$_XRAY_VERSION'
+   - '-f'
+   - 'jfrog-xray/Dockerfile.xray-server'
+   - '.' 
+   dir: 'jfrog-xray'
+    - name: 'gcr.io/cloud-builders/docker'
+   id: Build Xray-Indexer Image
+   args:
+   - 'build'
+   - '-t'
+   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-indexer:$_XRAY_VERSION'
+   - '-f'
+   - 'jfrog-xray/Dockerfile.xray-indexer'
+   - '.' 
+   dir: 'jfrog-xray'
+    - name: 'gcr.io/cloud-builders/docker'
+   id: Build Xray-Persist Image
+   args:
+   - 'build'
+   - '-t'
+   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-persist:$_XRAY_VERSION'
+   - '-f'
+   - 'jfrog-xray/Dockerfile.xray-persist'
+   - '.' 
+   dir: 'jfrog-xray'
+    - name: 'gcr.io/cloud-builders/docker'
+   id: Build Xray-Router Image
+   args:
+   - 'build'
+   - '-t'
+   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-router:${_ROUTER_VERSION}'
+   - '-f'
+   - 'jfrog-xray/Dockerfile.xray-router'
+   - '.' 
+   dir: 'jfrog-xray'
  - name: gcr.io/cloud-builders/kubectl
    id: Configure kubectl
    args:
