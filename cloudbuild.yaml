@@ -1,8 +1,8 @@
 substitutions:
-  _RT_VERSION: 7.19.4
-  _XRAY_VERSION: 3.25.1
-  _ROUTER_VERSION: 7.18.2
-  _DEPLOYER_TAG: 7.19
+  _RT_VERSION: '7.19.4'
+  _XRAY_VERSION: '3.25.1'
+  _ROUTER_VERSION: '7.18.2'
+  _DEPLOYER_TAG: '7.19'
 steps:
  - name: 'gcr.io/cloud-builders/docker'
    id: Build Artifactory Image
