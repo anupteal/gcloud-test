@@ -105,7 +105,7 @@ steps:
          chmod +x script.sh
  - name: 'bash'
    #entrypoint: "bash"
-   args: [ './script.sh' ]
+   args: [ './script.bash' ]
    
    
    
