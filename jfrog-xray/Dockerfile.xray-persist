@@ -1,6 +1,6 @@
 ARG TAG
 
-FROM releases-docker.jfrog.io/jfrog/xray-persist:3.25.1
-ADD jfrog-xray/THIRD-PARTY-LICENSES /third-party-oss/
-ADD jfrog-xray/Dockerfile.xray-persist /docker/xray/Dockerfile.GKE
-COPY jfrog-xray/xray.default /opt/jfrog/xray/app/bin
+FROM releases-docker.jfrog.io/jfrog/xray-persist:${TAG}
+ADD THIRD-PARTY-LICENSES /third-party-oss/
+ADD Dockerfile.xray-persist /docker/xray/Dockerfile.GKE
+COPY xray.default /opt/jfrog/xray/app/bin
