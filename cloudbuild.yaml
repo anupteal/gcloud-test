@@ -3,7 +3,7 @@ substitutions:
   _XRAY_VERSION: '3.25.1'
   _ROUTER_VERSION: '7.18.2'
   _DEPLOYER_TAG: '7.19'
-  _Branch_Name: '7.11.5-unified'
+  _BRANCH_NAME: '7.11.5-unified'
 steps:
  - name: 'gcr.io/cloud-builders/docker'
    id: Build Artifactory Image
@@ -27,7 +27,7 @@ steps:
    args:
      - 'clone'
      - '-b'
-     - '${_Branch_Name}'
+     - '${_BRANCH_NAME}'
      - 'https://github.com/jfrog/gke-marketplace-jfrog.git'
  - name: 'gcr.io/cloud-builders/gcloud'
    entrypoint: "bash"
