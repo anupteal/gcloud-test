@@ -22,7 +22,7 @@ steps:
 #   args:
 #     - 'push'
 #     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
- - name: 'gcr.io/$PROJECT_ID/git'
+ - name: 'gcr.io/cloud-builders/git'
    id: Clone repository
    args:
      - 'clone'
