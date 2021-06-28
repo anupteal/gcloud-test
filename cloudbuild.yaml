@@ -35,8 +35,7 @@ steps:
    id: Push Artifactory Image
    args:
      - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_DEPLOYER_TAG}'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION} gcr.io/$PROJECT_ID/jfrog-artifactory:${_DEPLOYER_TAG}'
 
  - name: 'gcr.io/cloud-builders/gcloud'
    entrypoint: "bash"
