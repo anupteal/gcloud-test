@@ -53,22 +53,7 @@ steps:
          #gcloud container clusters create anup-cluster --machine-type=f1-micro --preemptible --zone=asia-southeast1-a
          #kubectl get nodes
          ls 
-# - name: 'gcr.io/cloud-builders/docker'
-#   id: Build Artifactory Image
-#   args:
-#   - 'build'
-#   - '--build-arg'
-#   - 'TAG=${_RT_VERSION}'
-#   - '-t'
-#   - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
-#   - '-f'
-#   - 'jfrog-artifactory/Dockerfile.artifactory'
-#   - '.' 
-# - name: gcr.io/cloud-builders/docker
-#   id: Push Artifactory Image
-#   args:
-#     - 'push'
-#     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
+         
  - name: 'gcr.io/cloud-builders/docker'
    id: Build Artifactory-Nginx Image
    args:
