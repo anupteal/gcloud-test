@@ -22,14 +22,16 @@ steps:
    - 'TAG=${_RT_VERSION}'
    - '-t'
    - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
+   - '-t'
+   - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_DEPLOYER_TAG}'
    - '.'
    dir: 'gke-marketplace-jfrog/jfrog-artifactory'
  - name: 'gcr.io/cloud-builders/docker'
-   id: Tagging of Artifactory Image
+   id: all images
    args:
-     - 'tag'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_DEPLOYER_TAG}'
+     - 'images'
+#     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
+#     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_DEPLOYER_TAG}'
 # - name: gcr.io/cloud-builders/docker
 #   id: Push Artifactory Image
 #   args:
