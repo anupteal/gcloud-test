@@ -12,8 +12,8 @@ steps:
      - '-b'
      - '${_BRANCH_NAME}'
      - 'https://github.com/jfrog/gke-marketplace-jfrog.git'
-  - name: 'gcr.io/cloud-builders/git'
-   id: Clone repository
+ - name: 'gcr.io/cloud-builders/git'
+   id: check branch repository
    args:
      - 'branch'
    dir: 'gke-marketplace-jfrog/jfrog-artifactory'
