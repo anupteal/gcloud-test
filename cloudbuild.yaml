@@ -31,17 +31,12 @@ steps:
    - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_DEPLOYER_TAG}'
    - '.'
    dir: 'gke-marketplace-jfrog/jfrog-artifactory'
- - name: 'gcr.io/cloud-builders/docker'
-   id: all images
+ - name: gcr.io/cloud-builders/docker
+   id: Push Artifactory Image
    args:
-     - 'images'
-#     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
-#     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_DEPLOYER_TAG}'
-# - name: gcr.io/cloud-builders/docker
-#   id: Push Artifactory Image
-#   args:
-#     - 'push'
-#     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
+     - 'push'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_DEPLOYER_TAG}'
 
  - name: 'gcr.io/cloud-builders/gcloud'
    entrypoint: "bash"
