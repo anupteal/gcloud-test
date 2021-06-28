@@ -34,8 +34,9 @@ steps:
  - name: gcr.io/cloud-builders/docker
    id: Push Artifactory Image
    args:
+     - 'image'
      - 'push'
-     - '-a'
+     - '--all-tags'
      - 'gcr.io/$PROJECT_ID/jfrog-artifactory'
 
 
