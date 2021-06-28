@@ -32,13 +32,13 @@ steps:
    - '.'
    dir: 'gke-marketplace-jfrog/jfrog-artifactory'
  - name: gcr.io/cloud-builders/docker
-   id: Push Artifactory ${_DEPLOYER_TAG} Image
+   id: Push Artifactory Deployer tag Image
    args:
      - 'push'
      - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_DEPLOYER_TAG}'
 
  - name: gcr.io/cloud-builders/docker
-   id: Push Artifactory ${_RT_VERSION} Image
+   id: Push Artifactory Tag
    args:
      - 'push'
      - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
@@ -77,15 +77,22 @@ steps:
    - 'TAG=${_RT_VERSION}'
    - '-t'
    - 'gcr.io/$PROJECT_ID/jfrog-artifactory/nginx-artifactory-pro:$_RT_VERSION'
+   - '-t'
+   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/nginx-artifactory-pro:$_DEPLOYER_TAG'
    - '-f'
    - 'Dockerfile.nginx'
    - '.' 
-   dir: 'jfrog-artifactory'
-# - name: gcr.io/cloud-builders/docker
-#   id: Push Artifactory-Nginx Image
-#   args:
-#     - 'push'
-#     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/nginx-artifactory-pro:$_RT_VERSION'
+   dir: 'gke-marketplace-jfrog/jfrog-artifactory'
+ - name: gcr.io/cloud-builders/docker
+   id: Push Artifactory-Nginx Artifactory tag Image
+   args:
+     - 'push'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/nginx-artifactory-pro:$_RT_VERSION'
+ - name: gcr.io/cloud-builders/docker
+   id: Push Artifactory-Nginx Deployer tag Image
+   args:
+     - 'push'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/nginx-artifactory-pro:$_DEPLOYER_TAG'
  - name: 'gcr.io/cloud-builders/docker'
    id: Build Xray-Analysis Image
    args:
@@ -94,15 +101,29 @@ steps:
    - 'TAG=${_XRAY_VERSION}'
    - '-t'
    - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-analysis:$_XRAY_VERSION'
+   - '-t'
+   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-analysis:$_RT_VERSION'
+   - '-t'
+   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-analysis:$_DEPLOYER_TAG'
    - '-f'
    - 'Dockerfile.xray-analysis'
    - '.' 
-   dir: 'jfrog-xray'
-# - name: gcr.io/cloud-builders/docker
-#   id: Push Xray-Analysis Image
-#   args:
-#     - 'push'
-#     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-analysis:$_XRAY_VERSION'
+   dir: 'gke-marketplace-jfrog/jfrog-xray'
+ - name: gcr.io/cloud-builders/docker
+   id: Push Xray-Analysis xray tag
+   args:
+     - 'push'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-analysis:$_XRAY_VERSION'
+ - name: gcr.io/cloud-builders/docker
+   id: Push Xray-Analysis Artifactory tag
+   args:
+     - 'push'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-analysis:$_RT_VERSION'
+ - name: gcr.io/cloud-builders/docker
+   id: Push Xray-Analysis Deployer tag
+   args:
+     - 'push'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-analysis:$_DEPLOYER_TAG'
  - name: 'gcr.io/cloud-builders/docker'
    id: Build Xray-Server Image
    args:
@@ -111,10 +132,29 @@ steps:
    - 'TAG=${_XRAY_VERSION}'
    - '-t'
    - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-server:$_XRAY_VERSION'
+   - '-t'
+   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-server:$_RT_VERSION'
+   - '-t'
+   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-server:$_DEPLOYER_TAG'
    - '-f'
    - 'Dockerfile.xray-server'
    - '.' 
-   dir: 'jfrog-xray'
+   dir: 'gke-marketplace-jfrog/jfrog-xray'
+ - name: gcr.io/cloud-builders/docker
+   id: Push Xray-Server xray tag
+   args:
+     - 'push'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-server:$_XRAY_VERSION'
+ - name: gcr.io/cloud-builders/docker
+   id: Push Xray-Server Artifactory tag
+   args:
+     - 'push'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-server:$_RT_VERSION'
+ - name: gcr.io/cloud-builders/docker
+   id: Push Xray-Server Deployer tag
+   args:
+     - 'push'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-server:$_DEPLOYER_TAG'
  - name: 'gcr.io/cloud-builders/docker'
    id: Build Xray-Indexer Image
    args:
