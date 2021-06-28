@@ -5,6 +5,13 @@ substitutions:
   _DEPLOYER_TAG: '7.19'
   _BRANCH_NAME: '7.11.5-unified'
 steps:
+ - name: 'gcr.io/cloud-builders/git'
+   id: Clone repository
+   args:
+     - 'clone'
+     - '-b'
+     - '${_BRANCH_NAME}'
+     - 'https://github.com/jfrog/gke-marketplace-jfrog.git'
  - name: 'gcr.io/cloud-builders/docker'
    id: Build Artifactory Image
    args:
@@ -16,17 +23,19 @@ steps:
    - '-t'
    - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
    - '.'
-   dir: 'jfrog-artifactory'
+   dir: 'gke-marketplace-jfrog/jfrog-artifactory'
+ - name: 'gcr.io/cloud-builders/docker'
+   id: Tagging of Artifactory Image
+   args:
+     - 'tag'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_DEPLOYER_TAG}'
 # - name: gcr.io/cloud-builders/docker
 #   id: Push Artifactory Image
 #   args:
 #     - 'push'
 #     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
- - name: 'gcr.io/cloud-builders/git'
-   id: Clone repository
-   args:
-     - 'clone'
-     - 'https://github.com/jfrog/gke-marketplace-jfrog.git'
+
  - name: 'gcr.io/cloud-builders/gcloud'
    entrypoint: "bash"
    args: 
