@@ -26,8 +26,6 @@ steps:
    id: Clone repository
    args:
      - 'clone'
-     - '-b'
-     - '${_BRANCH_NAME}'
      - 'https://github.com/jfrog/gke-marketplace-jfrog.git'
  - name: 'gcr.io/cloud-builders/gcloud'
    entrypoint: "bash"
