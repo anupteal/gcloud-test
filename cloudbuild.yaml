@@ -1,9 +1,9 @@
-substitutions:
-  _RT_VERSION: '7.19.4'
-  _XRAY_VERSION: '3.25.1'
-  _ROUTER_VERSION: '7.18.2'
-  _DEPLOYER_TAG: '7.19'
-  _BRANCH_NAME: '7.11.5-unified'
+#substitutions:
+#  _RT_VERSION: '7.19.4'
+#  _XRAY_VERSION: '3.25.1'
+#  _ROUTER_VERSION: '7.18.2'
+#  _DEPLOYER_TAG: '7.19'
+#  _BRANCH_NAME: '7.11.5-unified'
 steps:
  - name: 'gcr.io/cloud-builders/git'
    id: Clone repository
