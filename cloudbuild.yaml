@@ -151,7 +151,22 @@ steps:
    - '-f'
    - 'Dockerfile.xray-indexer'
    - '.' 
-   dir: 'jfrog-xray'
+   dir: 'gke-marketplace-jfrog/jfrog-xray'  
+ - name: gcr.io/cloud-builders/docker
+   id: Push Xray-Indexer xray tag
+   args:
+     - 'push'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-indexer:$_XRAY_VERSION'
+ - name: gcr.io/cloud-builders/docker
+   id: Push Xray-Indexer Artifactory tag
+   args:
+     - 'push'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-indexer:$_RT_VERSION'
+ - name: gcr.io/cloud-builders/docker
+   id: Push Xray-Indexer Deployer tag
+   args:
+     - 'push'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-indexer:$_DEPLOYER_TAG'  
  - name: 'gcr.io/cloud-builders/docker'
    id: Build Xray-Persist Image
    args:
@@ -163,7 +178,22 @@ steps:
    - '-f'
    - 'Dockerfile.xray-persist'
    - '.' 
-   dir: 'jfrog-xray'
+   dir: 'gke-marketplace-jfrog/jfrog-xray'
+ - name: gcr.io/cloud-builders/docker
+   id: Push Xray-Persist xray tag
+   args:
+     - 'push'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-persist:$_XRAY_VERSION'
+ - name: gcr.io/cloud-builders/docker
+   id: Push Xray-Persist Artifactory tag
+   args:
+     - 'push'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-persist:$_RT_VERSION'
+ - name: gcr.io/cloud-builders/docker
+   id: Push Xray-Persist Deployer tag
+   args:
+     - 'push'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-persist:$_DEPLOYER_TAG'  
  - name: 'gcr.io/cloud-builders/docker'
    id: Build Xray-Router Image
    args:
@@ -175,7 +205,22 @@ steps:
    - '-f'
    - 'Dockerfile.xray-router'
    - '.' 
-   dir: 'jfrog-xray'
+   dir: 'gke-marketplace-jfrog/jfrog-xray'
+ - name: gcr.io/cloud-builders/docker
+   id: Push Xray-Router xray tag
+   args:
+     - 'push'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-router:$_XRAY_VERSION'
+ - name: gcr.io/cloud-builders/docker
+   id: Push Xray-Router Artifactory tag
+   args:
+     - 'push'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-router:$_RT_VERSION'
+ - name: gcr.io/cloud-builders/docker
+   id: Push Xray-Router Deployer tag
+   args:
+     - 'push'
+     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-router:$_DEPLOYER_TAG'  
  - name: gcr.io/cloud-builders/kubectl
    id: Configure kubectl
    args:
