@@ -206,11 +206,11 @@ steps:
    - 'Dockerfile.xray-router'
    - '.' 
    dir: 'gke-marketplace-jfrog/jfrog-xray'
- - name: gcr.io/cloud-builders/docker
-   id: Push Xray-Router xray tag
-   args:
-     - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-router:$_XRAY_VERSION'
+# - name: gcr.io/cloud-builders/docker
+#   id: Push Xray-Router xray tag
+#   args:
+#     - 'push'
+#     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-router:$_XRAY_VERSION'
 # - name: gcr.io/cloud-builders/docker
 #   id: Push Xray-Router Artifactory tag
 #   args:
