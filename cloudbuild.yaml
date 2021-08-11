@@ -1,9 +1,4 @@
-#substitutions:
-#  _RT_VERSION: '7.19.4'
-#  _XRAY_VERSION: '3.25.1'
-#  _ROUTER_VERSION: '7.18.2'
-#  _DEPLOYER_TAG: '7.19'
-#  _BRANCH_NAME: '7.11.5-unified'
+
 steps:
  - name: 'gcr.io/cloud-builders/git'
    id: Clone repository
@@ -26,22 +21,22 @@ steps:
    - '--build-arg'
    - 'TAG=${_RT_VERSION}'
    - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
+   - 'gcr.io/jfrog-gc-mp/jfrog-artifactory:${_RT_VERSION}'
    - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_DEPLOYER_TAG}'
+   - 'gcr.io/jfrog-gc-mp/jfrog-artifactory:${_DEPLOYER_TAG}'
    - '.'
    dir: 'gke-marketplace-jfrog/jfrog-artifactory'
  - name: gcr.io/cloud-builders/docker
    id: Push Artifactory Deployer tag Image
    args:
      - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_DEPLOYER_TAG}'
+     - 'gcr.io/jfrog-gc-mp/jfrog-artifactory:${_DEPLOYER_TAG}'
 
  - name: gcr.io/cloud-builders/docker
    id: Push Artifactory Tag
    args:
      - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory:${_RT_VERSION}'
+     - 'gcr.io/jfrog-gc-mp/jfrog-artifactory:${_RT_VERSION}'
  - name: 'gcr.io/cloud-builders/gcloud'
    entrypoint: "bash"
    args: 
@@ -61,9 +56,9 @@ steps:
    - '--build-arg'
    - 'TAG=${_RT_VERSION}'
    - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/nginx-artifactory-pro:$_RT_VERSION'
+   - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/nginx-artifactory-pro:$_RT_VERSION'
    - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/nginx-artifactory-pro:$_DEPLOYER_TAG'
+   - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/nginx-artifactory-pro:$_DEPLOYER_TAG'
    - '-f'
    - 'Dockerfile.nginx'
    - '.' 
@@ -72,12 +67,12 @@ steps:
    id: Push Artifactory-Nginx Artifactory tag Image
    args:
      - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/nginx-artifactory-pro:$_RT_VERSION'
+     - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/nginx-artifactory-pro:$_RT_VERSION'
  - name: gcr.io/cloud-builders/docker
    id: Push Artifactory-Nginx Deployer tag Image
    args:
      - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/nginx-artifactory-pro:$_DEPLOYER_TAG'
+     - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/nginx-artifactory-pro:$_DEPLOYER_TAG'
  - name: 'gcr.io/cloud-builders/docker'
    id: Build Xray-Analysis Image
    args:
@@ -85,11 +80,11 @@ steps:
    - '--build-arg'
    - 'TAG=${_XRAY_VERSION}'
    - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-analysis:$_XRAY_VERSION'
+   - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-analysis:$_XRAY_VERSION'
    - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-analysis:$_RT_VERSION'
+   - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-analysis:$_RT_VERSION'
    - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-analysis:$_DEPLOYER_TAG'
+   - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-analysis:$_DEPLOYER_TAG'
    - '-f'
    - 'Dockerfile.xray-analysis'
    - '.' 
@@ -98,17 +93,17 @@ steps:
    id: Push Xray-Analysis xray tag
    args:
      - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-analysis:$_XRAY_VERSION'
+     - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-analysis:$_XRAY_VERSION'
  - name: gcr.io/cloud-builders/docker
    id: Push Xray-Analysis Artifactory tag
    args:
      - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-analysis:$_RT_VERSION'
+     - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-analysis:$_RT_VERSION'
  - name: gcr.io/cloud-builders/docker
    id: Push Xray-Analysis Deployer tag
    args:
      - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-analysis:$_DEPLOYER_TAG'
+     - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-analysis:$_DEPLOYER_TAG'
  - name: 'gcr.io/cloud-builders/docker'
    id: Build Xray-Server Image
    args:
@@ -116,11 +111,11 @@ steps:
    - '--build-arg'
    - 'TAG=${_XRAY_VERSION}'
    - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-server:$_XRAY_VERSION'
+   - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-server:$_XRAY_VERSION'
    - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-server:$_RT_VERSION'
+   - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-server:$_RT_VERSION'
    - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-server:$_DEPLOYER_TAG'
+   - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-server:$_DEPLOYER_TAG'
    - '-f'
    - 'Dockerfile.xray-server'
    - '.' 
@@ -129,17 +124,17 @@ steps:
    id: Push Xray-Server xray tag
    args:
      - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-server:$_XRAY_VERSION'
+     - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-server:$_XRAY_VERSION'
  - name: gcr.io/cloud-builders/docker
    id: Push Xray-Server Artifactory tag
    args:
      - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-server:$_RT_VERSION'
+     - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-server:$_RT_VERSION'
  - name: gcr.io/cloud-builders/docker
    id: Push Xray-Server Deployer tag
    args:
      - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-server:$_DEPLOYER_TAG'
+     - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-server:$_DEPLOYER_TAG'
  - name: 'gcr.io/cloud-builders/docker'
    id: Build Xray-Indexer Image
    args:
@@ -147,11 +142,11 @@ steps:
    - '--build-arg'
    - 'TAG=${_XRAY_VERSION}'
    - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-indexer:$_XRAY_VERSION'
+   - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-indexer:$_XRAY_VERSION'
    - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-indexer:$_RT_VERSION'
+   - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-indexer:$_RT_VERSION'
    - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-indexer:$_DEPLOYER_TAG'
+   - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-indexer:$_DEPLOYER_TAG'
    - '-f'
    - 'Dockerfile.xray-indexer'
    - '.' 
@@ -160,17 +155,17 @@ steps:
    id: Push Xray-Indexer xray tag
    args:
      - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-indexer:$_XRAY_VERSION'
+     - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-indexer:$_XRAY_VERSION'
  - name: gcr.io/cloud-builders/docker
    id: Push Xray-Indexer Artifactory tag
    args:
      - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-indexer:$_RT_VERSION'
+     - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-indexer:$_RT_VERSION'
  - name: gcr.io/cloud-builders/docker
    id: Push Xray-Indexer Deployer tag
    args:
      - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-indexer:$_DEPLOYER_TAG'  
+     - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-indexer:$_DEPLOYER_TAG'  
  - name: 'gcr.io/cloud-builders/docker'
    id: Build Xray-Persist Image
    args:
@@ -178,11 +173,11 @@ steps:
    - '--build-arg'
    - 'TAG=${_XRAY_VERSION}'
    - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-persist:$_XRAY_VERSION'
+   - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-persist:$_XRAY_VERSION'
    - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-persist:$_RT_VERSION'
+   - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-persist:$_RT_VERSION'
    - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-persist:$_DEPLOYER_TAG'
+   - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-persist:$_DEPLOYER_TAG'
    - '-f'
    - 'Dockerfile.xray-persist'
    - '.' 
@@ -191,17 +186,17 @@ steps:
    id: Push Xray-Persist xray tag
    args:
      - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-persist:$_XRAY_VERSION'
+     - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-persist:$_XRAY_VERSION'
  - name: gcr.io/cloud-builders/docker
    id: Push Xray-Persist Artifactory tag
    args:
      - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-persist:$_RT_VERSION'
+     - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-persist:$_RT_VERSION'
  - name: gcr.io/cloud-builders/docker
    id: Push Xray-Persist Deployer tag
    args:
      - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-persist:$_DEPLOYER_TAG'  
+     - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-persist:$_DEPLOYER_TAG'  
  - name: 'gcr.io/cloud-builders/docker'
    id: Build Xray-Router Image
    args:
@@ -209,11 +204,11 @@ steps:
    - '--build-arg'
    - 'TAG=${_ROUTER_VERSION}'
    - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-router:${_ROUTER_VERSION}'
+   - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-router:${_ROUTER_VERSION}'
    - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-router:$_RT_VERSION'
+   - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-router:$_RT_VERSION'
    - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-router:$_DEPLOYER_TAG'
+   - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-router:$_DEPLOYER_TAG'
    - '-f'
    - 'Dockerfile.xray-router'
    - '.' 
@@ -222,17 +217,17 @@ steps:
    id: Push Xray-Router xray tag
    args:
      - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-router:${_ROUTER_VERSION}'
+     - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-router:${_ROUTER_VERSION}'
  - name: gcr.io/cloud-builders/docker
    id: Push Xray-Router Artifactory tag
    args:
      - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-router:$_RT_VERSION'
+     - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-router:$_RT_VERSION'
  - name: gcr.io/cloud-builders/docker
    id: Push Xray-Router Deployer tag
    args:
      - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/xray-router:$_DEPLOYER_TAG'  
+     - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/xray-router:$_DEPLOYER_TAG'  
  - name: gcr.io/cloud-builders/kubectl
    id: Configure kubectl
    args:
@@ -241,7 +236,7 @@ steps:
      - CLOUDSDK_COMPUTE_REGION=us-west1-a
      - CLOUDSDK_CONTAINER_CLUSTER=artifactory-ha-cluster
      - KUBECONFIG=/workspace/.kube/config
- - name: gcr.io/$PROJECT_ID/helm
+ - name: gcr.io/jfrog-gc-mp/helm
    id: Add repo chart
    args:
      - repo
@@ -250,7 +245,7 @@ steps:
      - https://charts.jfrog.io
    env:
      - KUBECONFIG=/workspace/.kube/config
- - name: gcr.io/$PROJECT_ID/helm
+ - name: gcr.io/jfrog-gc-mp/helm
    id: update chart
    args:
      - dependency
@@ -268,15 +263,15 @@ steps:
    - '--build-arg'
    - 'TAG=${_RT_VERSION}'
    - '--build-arg'
-   - 'REGISTRY=gcr.io/$PROJECT_ID/jfrog-artifactory'
+   - 'REGISTRY=gcr.io/jfrog-gc-mp/jfrog-artifactory'
    - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/deployer:${_DEPLOYER_TAG}'
+   - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/deployer:${_DEPLOYER_TAG}'
    - '.'
  - name: gcr.io/cloud-builders/docker
    id: Push Deployer Image
    args:
      - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/deployer:${_DEPLOYER_TAG}'  
+     - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/deployer:${_DEPLOYER_TAG}'  
  - name: 'gcr.io/cloud-builders/docker'
    id: Build Tester Image
    args:
@@ -285,19 +280,19 @@ steps:
    - 'Dockerfile'
    - '--no-cache'
    - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/tester:${_RT_VERSION}'
+   - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/tester:${_RT_VERSION}'
    - '-t'
-   - 'gcr.io/$PROJECT_ID/jfrog-artifactory/tester:${_DEPLOYER_TAG}'
+   - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/tester:${_DEPLOYER_TAG}'
    - '.'
    dir: 'apptest/tester'
  - name: gcr.io/cloud-builders/docker
    id: Push Tester Image Artifactory tag
    args:
      - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/tester:${_RT_VERSION}'
+     - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/tester:${_RT_VERSION}'
  - name: gcr.io/cloud-builders/docker
    id: Push Tester Image Deployer tag
    args:
      - 'push'
-     - 'gcr.io/$PROJECT_ID/jfrog-artifactory/tester:${_DEPLOYER_TAG}'
+     - 'gcr.io/jfrog-gc-mp/jfrog-artifactory/tester:${_DEPLOYER_TAG}'
    
