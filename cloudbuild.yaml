@@ -8,7 +8,7 @@ steps:
          #gcloud config set project jfrog-partnership-team
          #gcloud config set compute/zone asia-southeast1-a
          #gcloud config list
-         gcloud container clusters create anup-cluster --machine-type=f1-micro --preemptible --zone=asia-southeast1-a --project jfrog-partnership-team
+         gcloud container clusters create anup-cluster --project jfrog-partnership-team
          #kubectl get nodes
          ls 
  - name: 'gcr.io/cloud-builders/git'
